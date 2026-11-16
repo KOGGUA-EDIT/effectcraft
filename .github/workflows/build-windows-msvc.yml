@@ -1,0 +1,17 @@
+name: build-windows-msvc
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build release binary
+        run: cargo build --release -p effectcraft
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: effectcraft-msvc-release
+          path: target/release/effectcraft.exe
+          retention-days: 3
